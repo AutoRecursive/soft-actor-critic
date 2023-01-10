@@ -18,9 +18,8 @@ class ReplayBuffer:  # todo maybe do more clean in the future
 
     def store_transition(self, state: Union[list, np.array], action, reward: float, new_state: Union[list, np.array], done: Union[int, bool]):
         index = self.memory_counter % self.memory_size
-
-        self.state_memory[index] = state
-        self.new_state_memory[index] = new_state
+        self.state_memory[index] = state[0]
+        self.new_state_memory[index] = new_state[0]
         self.action_memory[index] = action
         self.reward_memory[index] = reward
         self.done_memory[index] = done

@@ -78,7 +78,8 @@ class Agent:
                 load_model(self.critic, self.critic_checkpoint_path)
 
     def choose_action(self, observation, deterministically: bool = False) -> np.array:
-        observation = torch.FloatTensor(observation).to(self.device)
+        observation = observation[0] if type(observation) is tuple else observation
+        observation = torch.from_numpy(observation).to(self.device)
         action = self.policy.act(observation, deterministic=deterministically)
         return action
 

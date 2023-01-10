@@ -25,7 +25,7 @@ def evaluate(env_name: str, run_name: str, env_kwargs: Optional[dict] = None, nu
     agent = Agent(observation_shape=observation_shape, num_actions=num_actions, hidden_units=hidden_units,
                   checkpoint_directory=run_directory, load_models=True)
 
-    env.seed(seed)
+    # env.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if render:
@@ -37,7 +37,7 @@ def evaluate(env_name: str, run_name: str, env_kwargs: Optional[dict] = None, nu
         score = 0
         done = False
         episode_step = 0
-        observation = env.reset()
+        observation = env.reset(seed=seed)
 
         while not done:
             if render or record:

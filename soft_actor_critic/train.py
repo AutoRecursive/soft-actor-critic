@@ -53,7 +53,7 @@ def train(
                   hidden_units=hidden_units, batch_size=batch_size, memory_size=memory_size,
                   checkpoint_directory=run_directory, load_models=load_models)
 
-    env.seed(seed)
+    # env.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
 
@@ -71,7 +71,7 @@ def train(
         done = False
         episode_step = 0
 
-        observation = env.reset()
+        observation = env.reset(seed=seed)
 
         while not done:
             if start_step > global_step:
@@ -79,7 +79,7 @@ def train(
             else:
                 action = agent.choose_action(observation)
 
-            new_observation, reward, done, info = env.step(action)
+            new_observation, reward, done, truncated, info = env.step(action)
             agent.remember(observation, action, reward, new_observation, done)
 
             score += reward
